@@ -33,7 +33,7 @@ See scripts/inference.sh
 
 See scripts/eval.sh
 
-We provide 5-fold model checkpoints for the Brats and HepaticVessel datasets. These models can be directly downloaded from Hugging Face.
+We provide 5-fold model checkpoints for the Brats and HepaticVessel datasets. These models can be directly downloaded from HuggingFace.
 ```
 huggingface-cli download qicq1c/3D-TransUNet --local-dir .
 ```
@@ -49,7 +49,7 @@ huggingface-cli download qicq1c/3D-TransUNet --local-dir .
 | 5    | 0.9418   | 0.9141   | 0.8560   | 0.9040   |
 | **Avg** | **0.9371** | **0.9168** | **0.8663** | **0.9061** |
 
-5-fold results for the Brats dataset
+5-fold results for the HepaticVessel dataset
 
 | Fold | Vessel | Tumour | Avg |
 |------|----------|----------|----------|
