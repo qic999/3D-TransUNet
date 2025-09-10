@@ -6,6 +6,8 @@ import SimpleITK as sitk
 
 from medpy import metric
 from tqdm import tqdm
+import pickle
+import json
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--config', default='', type=str, metavar='FILE', help='YAML config file specifying default arguments')
@@ -100,8 +102,19 @@ if pred_dir.find(',') != -1:
     pred_dirs = pred_dir.split(",")
     print(f'Fusing pred from: {pred_dirs}')
 
+
+if "brats" in task.lower():
+    with open("split/brats_splits_final.pkl", "rb") as f:
+        data = pickle.load(f)
+elif "hepaticvessel" in task.lower():
+    with open("split/hv_splits_final.pkl", "rb") as f:
+        data = pickle.load(f)
+
+eval_files = data[int(args.fold)]['val']
+eval_files = [i+'.nii.gz' for i in eval_files]
+
 r_ind = 0
-for ind, case in enumerate(tqdm(os.listdir(pred_dir if pred_dirs is None else pred_dirs[0]))):
+for ind, case in enumerate(tqdm(eval_files)):
     if not case.endswith(".nii.gz"):
         continue
     gt_path = label_dir+case.replace("_pred", "")
